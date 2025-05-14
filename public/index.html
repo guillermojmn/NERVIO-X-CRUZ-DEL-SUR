@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>NERVIO – Fiesta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    video#video-fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .contenido {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 15px 0 30px;
+      color: #DDDDDD;
+      max-width: 500px;
+    }
+
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 24px;
+      background-color: #FF3C00;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e03500;
+    }
+
+    .formulario {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      animation: fadeIn 0.5s ease-in-out;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .formulario input {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .formulario input[type="submit"] {
+      background-color: #FF3C00;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .formulario input[type="submit"]:hover {
+      background-color: #e03500;
+    }
+
+    .formulario label {
+      text-align: left;
+      font-size: 0.95rem;
+      color: #FFFFFF;
+    }
+
+    .titulo-compuesto {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+      margin-bottom: 20px;
+    }
+
+    .titulo-compuesto .cruce {
+      font-size: 2.5rem;
+      color: #FF3C00;
+    }
+
+    #verificacion {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #verificacion input {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.8rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop playsinline id="video-fondo">
+    <source src="reel2.mp4" type="video/mp4">
+    Tu navegador no soporta vídeo HTML5.
+  </video>
+
+  <div class="contenido">
+    <div class="titulo-compuesto">
+      <div class="linea">NERVIO</div>
+      <div class="cruce">×</div>
+      <div class="linea">CRUZ <br>DEL SUR</div>
+    </div>
+
+    <p>Únete al <strong>evento más salvaje</strong> del año. <br>Regístrate y forma parte de la experiencia.</p>
+
+    <button onclick="mostrarFormulario()">Registrarse</button>
+
+    <form class="formulario" id="formRegistro">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" placeholder="Tu nombre completo" required>
+
+      <label for="telefono">Número de Teléfono</label>
+      <input type="tel" id="telefono" value="+34 " required>
+
+      <div style="margin-top: 15px;">
+        <input type="checkbox" id="consentimiento" name="consentimiento" required>
+        <label for="consentimiento">
+          Acepto recibir comunicaciones informativas relativas al evento a través de WhatsApp, y consiento el tratamiento de mis datos personales conforme a la <a href="/politica.html" target="_blank">Política de Privacidad</a>.
+        </label>
+    </div>
+
+
+      <input type="submit" value="Enviar">
+    </form>
+
+    <div id="verificacion">
+      <label for="codigo">Código recibido por SMS</label>
+      <input type="text" id="codigo" placeholder="Ej: 123456">
+    </div>
+
+    <button id="verificarBtn" style="display: none; margin-top: 10px;">Confirmar código</button>
+    <p id="mensaje" style="margin-top: 15px; color: #00ffae; font-weight: bold;"></p>
+
+  </div>
+
+  <script>
+      function mostrarFormulario() {
+        const formulario = document.getElementById('formRegistro');
+        formulario.style.display = 'flex';
+      }
+
+      const inputTel = document.getElementById('telefono');
+
+      inputTel.addEventListener('input', () => {
+        if (!inputTel.value.startsWith('+34 ')) {
+          inputTel.value = '+34 ';
+        }
+      });
+
+      inputTel.addEventListener('keydown', (e) => {
+        if ((inputTel.selectionStart <= 4) && (e.key === 'Backspace' || e.key === 'Delete')) {
+          e.preventDefault();
+        }
+      });
+
+      inputTel.addEventListener('focus', () => {
+        if (inputTel.selectionStart < 4) {
+          setTimeout(() => {
+            inputTel.setSelectionRange(inputTel.value.length, inputTel.value.length);
+          }, 0);
+        }
+      });
+
+      async function enviarSMS() {
+        const nombre = document.getElementById('nombre').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const mensaje = document.getElementById('mensaje');
+
+        mensaje.textContent = '';
+
+        if (!nombre || !telefono.startsWith('+34') || telefono.length < 9) {
+          mensaje.style.color = '#ff4b4b';
+          mensaje.textContent = 'Introduce un nombre y número de teléfono válido';
+          return;
+        }
+
+        try {
+          const response = await fetch('http://192.168.1.52:3000/enviar-codigo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, telefono })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            mensaje.style.color = '#00ffae';
+            mensaje.textContent = 'Código enviado. Revisa tu móvil.';
+            document.getElementById('verificacion').style.display = 'block';
+            document.getElementById('verificarBtn').style.display = 'inline-block';
+          } else {
+            mensaje.style.color = '#ff4b4b';
+            mensaje.textContent = data.error || 'Hubo un error al enviar.';
+          }
+        } catch (error) {
+          console.error('Error al enviar:', error);
+          mensaje.style.color = '#ff4b4b';
+          mensaje.textContent = 'Fallo de conexión con el servidor.';
+        }
+      }
+
+      document.getElementById('formRegistro').addEventListener('submit', function (e) {
+        e.preventDefault();
+        enviarSMS();
+      });
+
+      // Aquí simulamos la verificación del código (todavía no valida con backend)
+      document.getElementById('verificarBtn').addEventListener('click', () => {
+        const codigo = document.getElementById('codigo').value.trim();
+        const mensaje = document.getElementById('mensaje');
+
+        if (!codigo || codigo.length !== 6) {
+          mensaje.style.color = '#ff4b4b';
+          mensaje.textContent = 'Introduce un código válido de 6 cifras';
+        } else {
+          mensaje.style.color = '#00ffae';
+          mensaje.textContent = '¡Código confirmado! (aquí se mostraría el QR)';
+          // Aquí en el futuro puedes añadir lógica para mostrar el QR real
+        }
+      });
+  </script>
+
+</body>
+</html>
